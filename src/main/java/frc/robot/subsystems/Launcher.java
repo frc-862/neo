@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,7 +14,7 @@ public class Launcher extends SubsystemBase {
     private Talon right1 = new Talon(RobotMap.LAUNCHER_RIGHT1);
     private Talon right2 = new Talon(RobotMap.LAUNCHER_RIGHT2);    
     private DigitalInput launcherSwitch = new DigitalInput(RobotMap.LAUNCHER_SWITCH);
-    private AnalogEncoder launcherEncoder = new AnalogEncoder(RobotMap.LAUNCHER_ENCODER);
+    private Encoder launcherEncoder = new Encoder(RobotMap.LAUNCHER_ENCODER1, RobotMap.LAUNCHER_ENCODER2);
 
     public Launcher() {
         left2.setInverted(Constants.LAUNCHER_LEFT1_INVERT);
@@ -22,10 +22,19 @@ public class Launcher extends SubsystemBase {
         right1.setInverted(Constants.LAUNCHER_RIGHT1_INVERT);
         right2.setInverted(Constants.LAUNCHER_RIGHT2_INVERT);
 
-        launcherEncoder.setPositionOffset(Constants.LAUNCHER_ENCODER_OFFSET);
+        launcherEncoder.setReverseDirection(Constants.LAUNCHER_ENCODER_INVERT);
+        launcherEncoder.getDecodingScaleFactor();
+        launcherEncoder.setDistancePerPulse(Constants.LAUNCHER_ENCODER_SCALE);
 
         CommandScheduler.getInstance().registerSubsystem(this);
         
+    }
+
+    @Override
+    public void periodic() {
+        if (getLimitSwitch()){
+            launcherEncoder.reset();
+        }
     }
 
     public void setPower(double power) {
@@ -34,9 +43,9 @@ public class Launcher extends SubsystemBase {
         right1.set(power);
         right2.set(power);
     }
-    
-    public double getEncoderValue() {
-        return launcherEncoder.getAbsolutePosition();
+
+    public double getAngle(){
+        return launcherEncoder.getDistance();
     }
 
     public boolean getLimitSwitch() {

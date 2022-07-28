@@ -22,5 +22,7 @@ public final class Constants {
     public static final double  LAUNCHER_RELEASE_ANGLE = 30d;
     public static final double  LAUNCHER_FIRE_POWER = 0.4;
     public static final double  LAUNCHER_RETURN_POWER = 0.3;
+    public static final boolean LAUNCHER_ENCODER_INVERT = false;
+    public static final double LAUNCHER_ENCODER_SCALE = 1;
 
 }

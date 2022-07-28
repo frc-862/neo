@@ -20,9 +20,8 @@ public class RobotMap {
     //DIO
     public static final int LAUNCHER_SWITCH = 0;
     public static final int COLLECTOR_SWITCH = 1;
-    
-    //ANALOG
-    public static final int LAUNCHER_ENCODER = 0;
+    public static final int LAUNCHER_ENCODER1 = 2;
+    public static final int LAUNCHER_ENCODER2 = 3;
 
     //CAN
     public static final int PCM = 1;

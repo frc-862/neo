@@ -28,6 +28,6 @@ public class LauncherFire extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return launcher.getEncoderValue() > Constants.LAUNCHER_RELEASE_ANGLE;
+        return launcher.getAngle() > Constants.LAUNCHER_RELEASE_ANGLE;
     }
 }

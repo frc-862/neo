@@ -5,17 +5,10 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Collect;
-import frc.robot.commands.LauncherFire;
-import frc.robot.commands.LauncherToLimit;
-import frc.robot.commands.TankDrive;
-import frc.robot.constants.Constants;
-import frc.robot.constants.JoystickConstants;
-import frc.robot.constants.RobotMap;
-import frc.robot.subsystems.Collector;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Launcher;
-import frc.robot.subsystems.Shifty;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.commands.*;
+import frc.robot.constants.*;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -24,13 +17,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 /* TODO: This stuff:
- * verify pwm ids (thanks electrical)
- * verify CAN ids (ELECTRICAL)
- * verify PCM ids (ELECTRICAL)
- * get some values from the encoder
- * add encoder angle stuff
- * verify shifting and deploying "inverts"
- * tune release angle
+ * set pcm can id in code (controls)
+ * manually check launcher inverts
+ * check encoder output (manually)
+ * check collector deploy switch output
+ * check launcher limit switch output
+ * check collector deploy "invert"
+ * check if launcher stop works without collector plugged in
+ * check that collector deploy before launching
+ * check if collector and launcher work in tandem
  * tune launcher powers
 */
 
@@ -59,11 +54,11 @@ public class RobotContainer {
    private void configureButtonBindings() {
       (new JoystickButton(copilot, JoystickConstants.XboxController.BUTTON_A)).whenPressed(
          new SequentialCommandGroup(
+            new CollectorDeploy(collector),
             new LauncherFire(launcher, collector),
             new LauncherToLimit(launcher, collector)
          )
       );
-      (new JoystickButton(copilot, JoystickConstants.XboxController.BUTTON_B)).whenPressed(new InstantCommand(shifty::toggleShift, shifty));
    }
 
    private void configureDefaultCommands() {
@@ -77,7 +72,7 @@ public class RobotContainer {
 
       collector.setDefaultCommand(
          new Collect(
-            collector, 
+            collector,
             () -> MathUtil.applyDeadband(
                copilot.getRightTriggerAxis()-copilot.getLeftTriggerAxis(), 
                Constants.COLLECTOR_DEADBAND
@@ -85,6 +80,12 @@ public class RobotContainer {
          )
       );
    }
+
+    protected void initializeDashboardCommands() { 
+          var tab = Shuffleboard.getTab("demo");
+
+          tab.add(new InstantCommand(shifty::toggleShift, shifty));
+    }
 
    public Command getAutonomousCommand() { return null; }
 }

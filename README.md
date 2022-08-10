@@ -3,6 +3,4 @@ demo code for neo, including launcher, shifting, and collector controls, with an
 
 launcher - A button
 
-collector - right trigger (automatically deploys)
-
-shifting - B button
+collector - right/left trigger (automatically deploys)

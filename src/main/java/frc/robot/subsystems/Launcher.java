@@ -1,8 +1,11 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
@@ -16,6 +19,11 @@ public class Launcher extends SubsystemBase {
     private DigitalInput launcherSwitch = new DigitalInput(RobotMap.LAUNCHER_SWITCH);
     private Encoder launcherEncoder = new Encoder(RobotMap.LAUNCHER_ENCODER1, RobotMap.LAUNCHER_ENCODER2);
 
+    private ShuffleboardTab demoTab = Shuffleboard.getTab("demo");
+
+	private NetworkTableEntry encoderValue = demoTab.add("encoder output", 0).getEntry();
+    private NetworkTableEntry switchValue = demoTab.add("launcher switch", false).getEntry();
+
     public Launcher() {
         left2.setInverted(Constants.LAUNCHER_LEFT1_INVERT);
         left1.setInverted(Constants.LAUNCHER_LEFT2_INVERT);
@@ -24,7 +32,7 @@ public class Launcher extends SubsystemBase {
 
         launcherEncoder.setReverseDirection(Constants.LAUNCHER_ENCODER_INVERT);
         launcherEncoder.getDecodingScaleFactor();
-        launcherEncoder.setDistancePerPulse(Constants.LAUNCHER_ENCODER_SCALE);
+        launcherEncoder.setDistancePerPulse(Constants.LAUNCHER_GEAR_RATIO);
 
         CommandScheduler.getInstance().registerSubsystem(this);
         
@@ -33,8 +41,11 @@ public class Launcher extends SubsystemBase {
     @Override
     public void periodic() {
         if (getLimitSwitch()){
-            launcherEncoder.reset();
+            resetEncoder();
         }
+
+        switchValue.setBoolean(getLimitSwitch());
+        encoderValue.setDouble(getAngle());
     }
 
     public void setPower(double power) {

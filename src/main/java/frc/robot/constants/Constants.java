@@ -14,15 +14,19 @@ public final class Constants {
     public static final double  COLLECTOR_DEADBAND = 0.05;
 
     //LAUNCHER
+    //INVERTS
     public static final boolean LAUNCHER_LEFT1_INVERT = true;
     public static final boolean LAUNCHER_LEFT2_INVERT = true;
-    public static final boolean LAUNCHER_RIGHT1_INVERT = true;
-    public static final boolean LAUNCHER_RIGHT2_INVERT = true;
-    public static final double  LAUNCHER_ENCODER_OFFSET = 0d;
-    public static final double  LAUNCHER_RELEASE_ANGLE = 30d;
+    public static final boolean LAUNCHER_RIGHT1_INVERT = false;
+    public static final boolean LAUNCHER_RIGHT2_INVERT = false;
+
+    //ENCODER
+    public static final int LAUNCHER_ENCODER_TICKS = 360;
+    public static final double LAUNCHER_GEAR_RATIO = 12/120; //12:120 gear ratio
+    public static final boolean LAUNCHER_ENCODER_INVERT = false;
+
+    //SHOOTING
+    public static final double  LAUNCHER_RELEASE_ANGLE = 65d;
     public static final double  LAUNCHER_FIRE_POWER = 0.4;
     public static final double  LAUNCHER_RETURN_POWER = 0.3;
-    public static final boolean LAUNCHER_ENCODER_INVERT = false;
-    public static final double LAUNCHER_ENCODER_SCALE = 1;
-
 }

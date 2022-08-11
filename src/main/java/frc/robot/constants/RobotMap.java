@@ -34,4 +34,5 @@ public class RobotMap {
     //DRIVETRAIN
     public static final int SHIFT_1 = 2;
     public static final int SHIFT_2 = 3;
+
 }

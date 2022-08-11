@@ -12,12 +12,12 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 
 /* TODO: This stuff:
- * set pcm can id in code (controls)
  * manually check launcher inverts
  * check encoder output (manually)
  * check collector deploy switch output
@@ -49,15 +49,18 @@ public class RobotContainer {
       configureDefaultCommands();
       configureButtonBindings();
       pcmCompressor.enableDigital();
+
+      initializeDashboardCommands();
    }
 
    private void configureButtonBindings() {
       (new JoystickButton(copilot, JoystickConstants.XboxController.BUTTON_A)).whenPressed(
          new SequentialCommandGroup(
             new CollectorDeploy(collector),
+            new WaitCommand(1),
             new LauncherFire(launcher, collector),
             new LauncherToLimit(launcher, collector)
-         )
+         ), false
       );
    }
 

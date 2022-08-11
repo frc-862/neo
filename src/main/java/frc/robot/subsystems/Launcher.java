@@ -56,7 +56,7 @@ public class Launcher extends SubsystemBase {
     }
 
     public double getAngle(){
-        return launcherEncoder.getDistance();
+        return launcherEncoder.get();
     }
 
     public boolean getLimitSwitch() {

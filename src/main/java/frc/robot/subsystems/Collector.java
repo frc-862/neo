@@ -22,6 +22,8 @@ public class Collector extends SubsystemBase {
 
 	private NetworkTableEntry collectorSwitchEntry = demoTab.add("collector switch", false).getEntry();
 
+    boolean state = false;
+
     public Collector() {
         collector.setInverted(Constants.COLLECTOR_INVERT);
 
@@ -43,10 +45,12 @@ public class Collector extends SubsystemBase {
         } else {
             deploy.set(Value.kReverse); 
         }
+
+        this.state = state;
     }
     
     public boolean getDeployed() {
-        return deploySwitch.get();
+        return state;
     }
 
     public void stop() {

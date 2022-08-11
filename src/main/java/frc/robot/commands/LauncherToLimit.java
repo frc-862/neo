@@ -18,8 +18,8 @@ public class LauncherToLimit extends CommandBase {
 
     @Override
     public void initialize() {
-        launcher.setPower(Constants.LAUNCHER_RETURN_POWER);
         collector.setDeployed(true);
+        launcher.setPower(Constants.LAUNCHER_RETURN_POWER);
     }
 
     @Override

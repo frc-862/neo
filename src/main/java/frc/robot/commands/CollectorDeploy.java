@@ -17,7 +17,7 @@ public class CollectorDeploy extends CommandBase {
         collector.setDeployed(true);
     }
 
-    @Override
+    @Override   
     public boolean isFinished() {
         return collector.getDeployed();
     }

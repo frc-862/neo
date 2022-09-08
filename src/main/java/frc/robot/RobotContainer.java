@@ -37,6 +37,7 @@ public class RobotContainer {
    private final Shifty shifty = new Shifty();
    private final Collector collector = new Collector();
    private final Launcher launcher = new Launcher();
+   private final Voltage voltage = new Voltage();
    
    //controllers
    private final Joystick leftDrive = new Joystick(JoystickConstants.Ports.DRIVER_LEFT);

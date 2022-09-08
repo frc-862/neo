@@ -1,6 +1,10 @@
 package frc.robot.constants;
 
 public class RobotMap {
+    //Analog
+    //Voltage
+    public static final int VOLTAGE = 0;
+
     //PWM
     //DRIVETRAIN
     public static final int LEFT1 = 0;

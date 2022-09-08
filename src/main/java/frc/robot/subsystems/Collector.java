@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Collector extends SubsystemBase {
     private Talon collector = new Talon(RobotMap.COLLECTOR);
-    private DigitalInput deploySwitch = new DigitalInput(RobotMap.COLLECTOR_SWITCH);
     private DoubleSolenoid deploy = new DoubleSolenoid(RobotMap.PCM, PneumaticsModuleType.CTREPCM, RobotMap.DEPLOY_1, RobotMap.DEPLOY_2);
 
     private ShuffleboardTab demoTab = Shuffleboard.getTab("demo");

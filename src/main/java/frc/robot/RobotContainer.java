@@ -15,28 +15,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-
-
-/* TODO: This stuff:
- * manually check launcher inverts
- * check encoder output (manually)
- * check collector deploy switch output
- * check launcher limit switch output
- * check collector deploy "invert"
- * check if launcher stop works without collector plugged in
- * check that collector deploy before launching
- * check if collector and launcher work in tandem
- * tune launcher powers
-*/
-
-
-
 public class RobotContainer {
    //subsystems
    private final Drivetrain drivetrain = new Drivetrain();
    private final Shifty shifty = new Shifty();
    private final Collector collector = new Collector();
    private final Launcher launcher = new Launcher();
+   private final Voltage voltage = new Voltage(); // read only
    
    //controllers
    private final Joystick leftDrive = new Joystick(JoystickConstants.Ports.DRIVER_LEFT);
